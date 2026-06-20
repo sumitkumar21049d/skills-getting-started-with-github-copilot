@@ -136,6 +136,78 @@ button:hover {
   display: none;
 }
 
+.participants-title {
+  margin-top: 10px;
+  font-weight: 700;
+  color: #333;
+}
+
+.participants-list {
+  list-style: none;
+  margin-top: 8px;
+  margin-bottom: 6px;
+  padding-left: 0;
+  max-height: 120px;
+  overflow: auto;
+}
+
+.participants-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  background: linear-gradient(90deg, #ffffff, #fbfbff);
+  border: 1px solid #eef2ff;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.participant-email {
+  display: inline-block;
+  background: #eef3ff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #0b3b91;
+  font-weight: 600;
+  flex: 1;
+}
+
+.delete-btn {
+  background: #ff5252;
+  color: white;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.15s;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+.delete-btn:hover {
+  background: #ff1744;
+  transform: scale(1.1);
+}
+
+.delete-btn:active {
+  transform: scale(0.95);
+}
+
+.no-participants {
+  color: #666;
+  font-style: italic;
+  margin-top: 6px;
+}
+
 footer {
   text-align: center;
   margin-top: 30px;
