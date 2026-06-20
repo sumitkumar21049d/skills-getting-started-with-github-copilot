@@ -41,6 +41,46 @@ activities = {
     }
 }
 
+# Additional activities added: sports (2), artistic (2), intellectual (2)
+activities.update({
+    "Basketball Team": {
+        "description": "Team practices, intramural games, and skills training",
+        "schedule": "Mondays and Thursdays, 4:00 PM - 6:00 PM",
+        "max_participants": 15,
+        "participants": ["alex@mergington.edu"]
+    },
+    "Swimming Club": {
+        "description": "Swimming lessons and lap practice for all skill levels",
+        "schedule": "Wednesdays, 4:00 PM - 5:30 PM",
+        "max_participants": 20,
+        "participants": ["harper@mergington.edu"]
+    },
+    "Art Club": {
+        "description": "Explore drawing, painting, and mixed media projects",
+        "schedule": "Tuesdays, 4:00 PM - 5:30 PM",
+        "max_participants": 18,
+        "participants": ["lucas@mergington.edu"]
+    },
+    "Drama Society": {
+        "description": "Acting workshops and termly performances",
+        "schedule": "Fridays, 4:30 PM - 6:30 PM",
+        "max_participants": 25,
+        "participants": ["mia@mergington.edu"]
+    },
+    "Debate Club": {
+        "description": "Develop public speaking and argumentation skills",
+        "schedule": "Wednesdays, 3:30 PM - 5:00 PM",
+        "max_participants": 16,
+        "participants": ["noah@mergington.edu"]
+    },
+    "Science Olympiad": {
+        "description": "Hands-on science challenges and competition prep",
+        "schedule": "Thursdays, 3:30 PM - 5:00 PM",
+        "max_participants": 20,
+        "participants": ["sophia2@mergington.edu"]
+    }
+})
+
 
 @app.get("/")
 def root():
@@ -62,6 +102,17 @@ def signup_for_activity(activity_name: str, email: str):
     # Get the specific activity
     activity = activities[activity_name]
 
-    # Add student
-    activity["participants"].append(email)
-    return {"message": f"Signed up {email} for {activity_name}"}
+    # Normalize and validate email
+    if not email or not email.strip():
+        raise HTTPException(status_code=400, detail="Email is required")
+    normalized = email.strip().lower()
+
+    # Prevent duplicate signups (compare normalized emails)
+    normalized_participants = [p.strip().lower() for p in activity.get("participants", [])]
+    if normalized in normalized_participants:
+        raise HTTPException(status_code=400, detail="Student already signed up for this activity")
+
+    # Add student (store trimmed email)
+    trimmed = email.strip()
+    activity["participants"].append(trimmed)
+    return {"message": f"Signed up {trimmed} for {activity_name}"}
